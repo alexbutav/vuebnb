@@ -1,19 +1,25 @@
 import Vue from 'vue';
-import sample from './data';
+import { populateAmenitiesAndPrices } from './helpers';
 
+let model = populateAmenitiesAndPrices(JSON.parse(window.vuebnb_listing_model));
+console.log(model);
+// 
 var app = new Vue({
     el: '#app',
-    data: {
-        title: sample.title,
-        address: sample.address,
-        about: sample.about,
+    data: {    
+        ...model,
         headerImageStyle: {
-            'background-image': 'url(/images/header.jpg)',
+            'background-image': `url(${model.images[0]})`,
         },
-        amenities: sample.amenities,
-        prices: sample.prices,
         contracted: true,
-        modalOpen: false,
+        modalOpen: false
+    },
+    methods: {
+        escapeKeyListener(evt) {
+            if (evt.keyCode === 27 && app.modalOpen) {
+                app.modalOpen = false;
+            }
+        }
     },
     watch: {
         modalOpen: function () {
@@ -25,18 +31,10 @@ var app = new Vue({
             }
         }
     },
-    created: function (evt) {
-        if (evt.keyCode === 27 && app.modalOpen) {
-            app.modalOpen = false;
-        }
+    created: function () {
+        document.addEventListener('keyup', this.escapeKeyListener);
     },
     destroyed: function () {
         document.removeEventListener('keyup', this.escapeKeyListener);
     },
-});
-
-document.addEventListener('keyup', function (evt) {
-    if (evt.keyCode === 27 && app.modalOpen) {
-        app.modalOpen = false;
-    }
 });
