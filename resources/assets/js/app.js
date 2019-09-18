@@ -1,40 +1,28 @@
+
 import Vue from 'vue';
 import { populateAmenitiesAndPrices } from './helpers';
 
+import ImageCarousel from './components/ImageCarousel';
+import HeaderImage from './components/HeaderImage';
+import ModalWindow from './components/ModalWindow';
+
 let model = populateAmenitiesAndPrices(JSON.parse(window.vuebnb_listing_model));
-console.log(model);
+
 // 
 var app = new Vue({
     el: '#app',
     data: {    
         ...model,
-        headerImageStyle: {
-            'background-image': `url(${model.images[0]})`,
-        },
-        contracted: true,
-        modalOpen: false
+        contracted: true
     },
     methods: {
-        escapeKeyListener(evt) {
-            if (evt.keyCode === 27 && app.modalOpen) {
-                app.modalOpen = false;
-            }
+        openModal() {
+            this.$refs.imagemodal.modalOpen = true;
         }
     },
-    watch: {
-        modalOpen: function () {
-            var className = 'modal-open';
-            if (this.modalOpen) {
-                document.body.classList.add(className);
-            } else {
-                document.body.classList.remove(className);
-            }
-        }
-    },
-    created: function () {
-        document.addEventListener('keyup', this.escapeKeyListener);
-    },
-    destroyed: function () {
-        document.removeEventListener('keyup', this.escapeKeyListener);
-    },
+    components: {
+        ImageCarousel,
+        HeaderImage,
+        ModalWindow
+    }
 });

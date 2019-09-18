@@ -11,6 +11,10 @@ let mix = require('laravel-mix');
  |
  */
 
+mix.options({
+   extractVueStyles: 'public/css/vue-style.css'
+});
+
 mix.js('resources/assets/js/app.js', 'public/js')
    .styles([
       'node_modules/open-sans-all/css/open-sans.css',

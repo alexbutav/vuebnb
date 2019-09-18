@@ -8,9 +8,8 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('fonts/open-sans.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('fonts/font-awesome.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}">
-    <script type='text/javascript'>
-        window.vuebnb_listing_model = "{!! addslashes(json_encode($model)) !!}";
-    </script>
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/vue-style.css') }}">
+    <script type='text/javascript'> window.vuebnb_listing_model = "{!! addslashes(json_encode($model)) !!}"; </script>
 </head>
 <body>
 
@@ -20,11 +19,7 @@
 </div>
 
 <div id="app">
-    <div class="header">
-        <div class="header-img" v-bind:style="headerImageStyle" v-on:click="modalOpen = true">
-            <button class="view-photos">View Photos</button>
-        </div>
-    </div>
+    <header-image @header-clicked='openModal' :image-url="this.images[0]"></header-image>
     <div class="container">
         <h1>@{{ title }}</h1>
         <p>@{{ address }}</p>
@@ -61,14 +56,9 @@
             </div>
         </div>
     </div>
-    <div id="modal" v-bind:class="{ show : modalOpen }">
-        <button v-on:click="modalOpen = false" class="modal-close">
-            &times;
-        </button>
-        <div class="modal-content">
-            <img :src="images[0]"/>
-        </div>
-    </div>
+    <modal-window ref="imagemodal">
+        <image-carousel :images="images"></image-carousel>
+    </modal-window>
 </div>
 
 <script src="{{ asset('js/app.js') }}"></script>
