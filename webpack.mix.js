@@ -11,6 +11,14 @@ let mix = require('laravel-mix');
  |
  */
 
+mix.webpackConfig({
+   resolve: {
+      alias: {
+         'vue$': 'vue/dist/vue.runtime.esm.js'
+      }
+   }
+});
+
 mix.options({
    extractVueStyles: 'public/css/vue-style.css'
 });

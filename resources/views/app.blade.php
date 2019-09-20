@@ -18,40 +18,7 @@
     <h1>vuebnb</h1>
 </div>
 
-<div id="app">
-    <header-image @header-clicked='openModal' :image-url="this.images[0]"></header-image>
-    <div class="container">
-        <h1>@{{ title }}</h1>
-        <p>@{{ address }}</p>
-        <hr/>
-        <div class="about">
-            <h3>About this listing</h3>
-            <p v-bind:class="{ contracted : contracted }">@{{ about }}</p>
-            <button class="more" v-on:click="contracted = !contracted">
-                <span v-if="contracted">+</span>
-                <span v-else="contracted">-</span>
-                &nbsp;
-                More
-            </button>
-        </div>
-        <div class="lists">
-            <feature-list title="Amenities">
-                <div class="list-item" v-for="amenity in amenities">
-                    <i class="fa fa-lg" v-bind:class="amenity.icon"></i>
-                    <span>@{{ amenity.title }}</span>
-                </div>
-            </feature-list>
-            <feature-list title="Prices">
-                <div class="list-item" v-for="price in prices">
-                    @{{ price.title }}: <strong>@{{ price.value }}</strong>
-                </div>
-            </feature-list>
-        </div>
-    </div>
-    <modal-window ref="imagemodal">
-        <image-carousel :images="images"></image-carousel>
-    </modal-window>
-</div>
+<div id="app"></div>
 
 <script src="{{ asset('js/app.js') }}"></script>
 
