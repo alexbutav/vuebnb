@@ -30,21 +30,35 @@
 
 <script>
 
+// Helper
 import { populateAmenitiesAndPrices } from '../helpers';
 
+// components
 import ImageCarousel from './ImageCarousel';
 import HeaderImage from './HeaderImage';
 import FeatureList from './FeatureList';
 import ModalWindow from './ModalWindow';
 import ExpandableText from './ExpandableText';
 
-let model = populateAmenitiesAndPrices(JSON.parse(window.vuebnb_listing_model));
+// 
+import routeMixin from '../router-mixin';
 
 export default {
+    mixinis: [routeMixin],
     data() {
-        return model;
+        return {
+            title: null,
+            about: null,
+            address: null,
+            amenities: [],
+            prices: [],
+            images
+        }
     },    
     methods: {
+        assignData({ listing }) {
+            Object.assign(this.$data, populateAmenitiesAndPrices(listing));
+        },
         openModal() {
             this.$refs.imagemodal.modalOpen = true;
         }

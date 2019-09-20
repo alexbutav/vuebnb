@@ -9,7 +9,7 @@
         <link rel="stylesheet" type="text/css" href="{{ asset('fonts/font-awesome.css') }}">
         <link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}">
         <link rel="stylesheet" type="text/css" href="{{ asset('css/vue-style.css') }}">
-        <script type='text/javascript'> window.vuebnb_listing_model = "{!! addslashes(json_encode($model)) !!}"; </script>
+        <script type='text/javascript'> window.vuebnb_server_data = "{!! addslashes(json_encode($data)) !!}"; </script>
     </head>
     <body>
         <div id="app"></div>
