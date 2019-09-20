@@ -1,9 +1,11 @@
 import Vue from 'vue';
 
-import ListingPage from './components/ListingPage';
+import App from './components/App';
+import router from './router';
 
 // 
 var app = new Vue({
     el: '#app',
-    render: h => h(ListingPage)
+    router,
+    render: h => h(App)
 });
