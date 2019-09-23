@@ -4,12 +4,17 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Listing;
+use Illuminate\Support\Facades\Auth;
 
 // https://vuejsdevelopers.com/2017/08/06/vue-js-laravel-full-stack-ajax/
 class ListingController extends Controller
 {
     private function add_meta_data($collection, $request) {
-        return $collection->merge([ 'path' => $request->getPathInfo() ]);
+        return $collection->merge([
+            'path' => $request->getPathInfo(),
+            'auth' => Auth::check(),
+            'saved' => Auth::check() ? Auth::user()->saved : []
+        ]);
     }
 
     private function get_listing(Listing $listing) {

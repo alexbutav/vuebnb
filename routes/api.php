@@ -18,7 +18,9 @@ Route::get('/', 'ListingController@get_home_api');
 
 Route::get('listing/{listing}', 'ListingController@get_listing_api');
 
-Route::get('/sabed', 'ListingController@get_home_api');
+Route::get('/saved', 'ListingController@get_home_api');
+
+Route::get('/user/toggle_saved', 'UserController@toggle_saved')->middleware('auth:api');
 
 // Route::middleware('auth:api')->get('/user', function (Request $request) {
 //     return $request->user();

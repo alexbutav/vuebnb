@@ -6,9 +6,18 @@
                 <h1>vuebnb</h1>
             </router-link>
             <ul class="links">
-                <li>
-                    <router-link to="/saved">Saved</router-link>
+                <li><router-link to="/saved">Saved</router-link></li>
+                <li v-if="$store.state.auth">
+                    <a @click="logout">Log out</a>
+                    <form 
+                     style="display: hidden"
+                     method="POSt"
+                     id="logout"
+                     action="/logout">
+                        <input type="hidden" name="_token" :value="csrf_token">
+                    </form>
                 </li>
+                <li v-else><router-link to="/login">Log In</router-link></li>
             </ul>
         </div>
         <router-view></router-view>
@@ -19,6 +28,16 @@
     import CustomFooter from './CustomFooter';
 
     export default {
+        data() {
+            return {
+                csrf_token: window.csrf_token
+            }
+        },
+        methods: {
+            logout() {
+                document.getElementById('logout').submit();
+            }
+        },
         components: {
             CustomFooter
         }
