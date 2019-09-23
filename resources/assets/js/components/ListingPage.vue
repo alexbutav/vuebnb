@@ -1,30 +1,31 @@
 <template>
   <div>
     <header-image 
-        v-if="images[0]"
+        v-if="listing.images[0]"
         @header-clicked='openModal' 
-        :image-url="images[0]"
+        :image-url="listing.images[0]"
+        :id="listing.id"
     ></header-image>
     <div class="container">
-        <h1>{{ title }}</h1>
-        <p>{{ address }}</p>
+        <h1>{{ listing.title }}</h1>
+        <p>{{ listing.address }}</p>
         <hr>
         <div class="about">
             <h3>About this listing</h3>
-            <expandable-text>{{ about }}</expandable-text>
+            <expandable-text>{{ listing.about }}</expandable-text>
         </div>
         <div class="lists">
-            <feature-list title="Amenities" :items="amenities"  v-slot='item'>
+            <feature-list title="Amenities" :items="listing.amenities"  v-slot='item'>
                 <i class="fa fa-lg" :class="item.icon"></i>
                 <span>{{ item.title }}</span>
             </feature-list>
-            <feature-list title="Prices"  :items="prices"  v-slot='item'>
+            <feature-list title="Prices"  :items="listing.prices"  v-slot='item'>
                 {{ item.title }}: <strong>{{ item.value }}</strong>
             </feature-list>
         </div>
     </div>
     <modal-window ref="imagemodal">
-        <image-carousel :images="images"></image-carousel>
+        <image-carousel :images="listing.images"></image-carousel>
     </modal-window>
   </div>
 </template>
@@ -41,27 +42,17 @@ import FeatureList from './FeatureList';
 import ModalWindow from './ModalWindow';
 import ExpandableText from './ExpandableText';
 
-// 
-import routeMixin from '../router-mixin';
-
-export default {
-    mixins: [routeMixin],
-    data() {
-        return {
-            title: null,
-            about: null,
-            address: null,
-            amenities: [],
-            prices: [],
-            images: []
-        }
-    },    
+export default { 
     methods: {
-        assignData({ listing }) {
-            Object.assign(this.$data, populateAmenitiesAndPrices(listing));
-        },
         openModal() {
             this.$refs.imagemodal.modalOpen = true;
+        }
+    },
+    computed: {
+        listing() {
+            return populateAmenitiesAndPrices(
+                this.$store.getters.getListing(this.$route.params.listing)
+            );
         }
     },
     components: {

@@ -13,18 +13,11 @@
 <script>
 import { groupByCountry } from '../helpers';
 import ListingSummaryGroup from './ListingSummaryGroup';
-import routeMixin from '../router-mixin';
 
 export default {
-    mixins: [routeMixin],
-    data() {
-        return {
-            listing_groups: []
-        }
-    },
-    methods: {
-        assignData({ listings }) {
-            this.listing_groups = groupByCountry(listings);
+    computed: {
+        listing_groups() {
+            return groupByCountry(this.$store.state.listing_summaries);
         }
     },
     components: {
