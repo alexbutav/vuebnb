@@ -27,8 +27,7 @@ export default {
     },
     methods: {
         assignData({ listings }) {
-            console.log('HERE WE GO');
-            Object.assign(this.$data, groupByCountry(listings));
+            this.listing_groups = groupByCountry(listings);
         }
     },
     components: {

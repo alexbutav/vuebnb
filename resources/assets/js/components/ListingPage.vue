@@ -1,8 +1,9 @@
 <template>
   <div>
     <header-image 
+        v-if="images[0]"
         @header-clicked='openModal' 
-        :image-url="this.images[0]"
+        :image-url="images[0]"
     ></header-image>
     <div class="container">
         <h1>{{ title }}</h1>
@@ -44,7 +45,7 @@ import ExpandableText from './ExpandableText';
 import routeMixin from '../router-mixin';
 
 export default {
-    mixinis: [routeMixin],
+    mixins: [routeMixin],
     data() {
         return {
             title: null,
@@ -52,7 +53,7 @@ export default {
             address: null,
             amenities: [],
             prices: [],
-            images
+            images: []
         }
     },    
     methods: {
